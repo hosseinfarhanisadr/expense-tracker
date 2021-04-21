@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import Footer from '../Footer/Footer';
 
 const Layout = ({ children }) => {
   return (
@@ -7,7 +8,7 @@ const Layout = ({ children }) => {
       <main className="flex-grow" role="main">
         {children}
       </main>
-      <footer>footer</footer>
+      <Footer />
     </div>
   );
 };
