@@ -136,8 +136,9 @@ TransactionForm.propTypes = {
     id: PropTypes.string,
     note: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-    amount: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
+    amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      .isRequired,
   }).isRequired,
   edit: PropTypes.bool,
   onDelete: PropTypes.func,
