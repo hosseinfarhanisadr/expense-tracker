@@ -61,7 +61,10 @@ const Header = () => {
 
       <div className="flex justify-between items-end mt-6 xs:mt-12">
         <div className="flex items-end">
-          <h1 className="text-3xl sm:text-4xl font-semibold">
+          <h1
+            className="text-3xl sm:text-4xl font-semibold"
+            data-testid="wallet-balance"
+          >
             {formatUsdAmount(walletBalance)}
           </h1>
           <button
