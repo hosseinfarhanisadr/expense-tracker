@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
-ReactModal.setAppElement('#__next');
+if (process.env.NODE_ENV !== 'test') {
+  ReactModal.setAppElement('#__next');
+}
 
 const Modal = ({ isOpen, onClose, title, children }) => {
   return (
@@ -12,6 +14,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       bodyOpenClassName="overflow-hidden w-full h-full"
       className="absolute top-1/2	left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-11/12 md:max-w-lg shadow-lg rounded-lg outline-none overflow-auto"
       overlayClassName="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity overflow-hidden z-50"
+      ariaHideApp={!process.env.NODE_ENV === 'test'}
     >
       {title && (
         <div className="flex align-center px-6 py-4 bg-white border-b border-gray-300">
