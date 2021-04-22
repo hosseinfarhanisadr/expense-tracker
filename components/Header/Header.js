@@ -1,11 +1,27 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import { useIsHome } from '../../hooks/useIsHome';
 import { formatToday, formatUsdAmount } from '../../utils/format';
+import InitialBalanceModal from '../InitialBalanceModal';
+import { useSelector } from 'react-redux';
+import { selectInitialBalance } from '../../store/app/walletSlice';
 
 const Header = () => {
+  const [isInitialBalanceModalOpen, setIsInitialBalanceModalOpen] = useState(
+    false
+  );
+
   const isHome = useIsHome();
 
-  const walletBalance = 0;
+  const walletBalance = useSelector(selectInitialBalance);
+
+  const handleOpenInitialBalanceModal = () => {
+    setIsInitialBalanceModalOpen(true);
+  };
+
+  const handleCloseInitialBalanceModal = () => {
+    setIsInitialBalanceModalOpen(false);
+  };
 
   return (
     <header className="relative w-full shadow-lg p-8 rounded-lg bg-gray-900 mt-12 text-white">
@@ -52,6 +68,7 @@ const Header = () => {
             type="button"
             className="px-2 py-2 focus:outline-none text-yellow-300 hover:text-yellow-500"
             aria-label="Edit Initial Balance"
+            onClick={handleOpenInitialBalanceModal}
           >
             <span className="sr-only">Edit Initial Balance</span>
             <svg
@@ -74,6 +91,10 @@ const Header = () => {
           USD
         </div>
       </div>
+      <InitialBalanceModal
+        isOpen={isInitialBalanceModalOpen}
+        onClose={handleCloseInitialBalanceModal}
+      />
     </header>
   );
 };
