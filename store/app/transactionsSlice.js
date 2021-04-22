@@ -9,6 +9,20 @@ const transactionsSlice = createSlice({
       const transaction = { ...action.payload, id: uuidv4() };
       state.push(transaction);
     },
+    editTransaction: (state, action) => {
+      const index = state.findIndex((item) => item.id === action.payload.id);
+
+      if (index !== -1) {
+        state[index] = action.payload;
+      }
+    },
+    deleteTransaction: (state, action) => {
+      const index = state.findIndex((item) => item.id === action.payload);
+
+      if (index !== -1) {
+        state.splice(index, 1);
+      }
+    },
   },
 });
 
@@ -29,6 +43,6 @@ export const selectTransactionsBalance = ({ transactions }) => {
 
 const { actions, reducer } = transactionsSlice;
 
-export const { addTransaction } = actions;
+export const { addTransaction, editTransaction, deleteTransaction } = actions;
 
 export default reducer;
