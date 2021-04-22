@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { selectTransactionsBalance } from './transactionsSlice';
 
 const transactionsSlice = createSlice({
   name: 'wallet',
@@ -16,6 +17,11 @@ const transactionsSlice = createSlice({
 export const selectInitialBalance = (state) => {
   return state.wallet.initialBalance;
 };
+
+export const selectWalletBalance = createSelector(
+  [selectInitialBalance, selectTransactionsBalance],
+  (initialBalance, transactionsBalance) => initialBalance + transactionsBalance
+);
 
 const { actions, reducer } = transactionsSlice;
 

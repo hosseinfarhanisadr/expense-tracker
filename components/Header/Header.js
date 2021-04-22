@@ -4,7 +4,7 @@ import { useIsHome } from '../../hooks/useIsHome';
 import { formatToday, formatUsdAmount } from '../../utils/format';
 import InitialBalanceModal from '../InitialBalanceModal';
 import { useSelector } from 'react-redux';
-import { selectInitialBalance } from '../../store/app/walletSlice';
+import { selectWalletBalance } from '../../store/app/walletSlice';
 
 const Header = () => {
   const [isInitialBalanceModalOpen, setIsInitialBalanceModalOpen] = useState(
@@ -13,7 +13,7 @@ const Header = () => {
 
   const isHome = useIsHome();
 
-  const walletBalance = useSelector(selectInitialBalance);
+  const walletBalance = useSelector(selectWalletBalance);
 
   const handleOpenInitialBalanceModal = () => {
     setIsInitialBalanceModalOpen(true);

@@ -12,6 +12,21 @@ const transactionsSlice = createSlice({
   },
 });
 
+export const selectTransactionsBalance = ({ transactions }) => {
+  let transactionsBalance = 0;
+
+  transactions.forEach((transaction) => {
+    const amount =
+      transaction.category === 'expense'
+        ? -transaction.amount
+        : +transaction.amount;
+
+    transactionsBalance += amount;
+  });
+
+  return transactionsBalance;
+};
+
 const { actions, reducer } = transactionsSlice;
 
 export const { addTransaction } = actions;
