@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
 const Input = ({
   id,
@@ -7,6 +8,7 @@ const Input = ({
   type = 'text',
   error = false,
   multiline = false,
+  className,
   ...rest
 }) => {
   const inputId = id ? id : name;
@@ -25,9 +27,11 @@ const Input = ({
         id={inputId}
         type={type}
         name={name}
-        className={`appearance-none border border-gray-300 focus:outline-none p-3 rounded-md w-full ${
-          error ? 'border-red-500' : ''
-        }`}
+        className={clsx(
+          'appearance-none border border-gray-300 focus:outline-none p-3 rounded-md w-full',
+          error && 'border-red-500',
+          className
+        )}
         {...rest}
       />
     </>
