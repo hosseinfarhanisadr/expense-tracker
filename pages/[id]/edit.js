@@ -39,7 +39,7 @@ export default function EditTransaction() {
   return (
     <>
       <Head>
-        <title>Edit Transaction</title>
+        <title>Expense Tracker - Edit Transaction</title>
       </Head>
 
       <div className="mt-10">
