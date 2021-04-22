@@ -11,3 +11,16 @@ export function formatToday() {
     day: 'numeric',
   });
 }
+/**
+ * Format USD value
+ * @param {number} amount - usd amount
+ * @returns {string} formatted usd amount. Example: $2,500.00
+ */
+export function formatUsdAmount(amount) {
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  return formatter.format(amount);
+}
