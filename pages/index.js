@@ -4,17 +4,32 @@ import { useSelector } from 'react-redux';
 import Button from '../components/Button/Button';
 import { selectGroupedTransactions } from '../store/app/transactionsSlice';
 import TransactionItem from '../components/TransactionItem';
+import { useState } from 'react';
+import Input from '../components/Input';
 
 export default function Home() {
-  const transactionGroups = useSelector(selectGroupedTransactions);
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  const transactionGroups = useSelector((state) => {
+    return selectGroupedTransactions(state, searchKeyword);
+  });
+
+  const handleChangeSearchKeyword = (event) => {
+    setSearchKeyword(event.target.value);
+  };
+
   return (
     <>
       <Head>
         <title>Expense Tracker</title>
       </Head>
-      <div className="flex justify-end mt-12">
+      <div className="flex flex-wrap flex-row sm:flex-row-reverse justify-between mt-12">
         <Link href="/add" passHref>
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            className="w-full sm:w-auto mb-6 sm:mb-0"
+          >
             <svg
               className="mr-2"
               width="20"
@@ -34,6 +49,14 @@ export default function Home() {
             Add Transaction
           </Button>
         </Link>
+
+        <Input
+          name="searchKeyword"
+          value={searchKeyword}
+          onChange={handleChangeSearchKeyword}
+          placeholder="Search By Transaction Type"
+          className="sm:w-1/2 py-2"
+        />
       </div>
 
       <div>

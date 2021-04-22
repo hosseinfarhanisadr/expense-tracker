@@ -28,7 +28,17 @@ const transactionsSlice = createSlice({
 });
 
 export const selectGroupedTransactions = createSelector(
-  (state) => state.transactions,
+  (state, type) => {
+    const transactions = state.transactions;
+
+    if (type) {
+      return transactions.filter((transaction) =>
+        transaction.note.includes(type)
+      );
+    }
+
+    return transactions;
+  },
   (transactions) => groupTransactionsByDate(transactions)
 );
 
