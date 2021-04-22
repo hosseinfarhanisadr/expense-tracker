@@ -41,22 +41,41 @@ function transformTransactions(transactions = []) {
 }
 /**
  * Sort transaction array based on transaction date in descending order
- * @param {object[]} transactions array of transaction objects
+ * @param {object[]} [transactions=[]] array of transaction objects
  * @returns {object[]} sorted transactions array
  */
-function sortTransactionsByDate(transactions) {
+function sortTransactionsByDate(transactions = []) {
   return transactions.sort(
     (a, b) => b.dateObject.getTime() - a.dateObject.getTime()
   );
 }
 /**
  * Group transaction objects by month and year
- * @param {*} transactions array of transaction objects
+ * @param {object[]} [transactions=[]] array of transaction objects
  * @returns {object} grouped transactions
  */
-export function groupTransactionsByDate(transactions) {
+export function groupTransactionsByDate(transactions = []) {
   const transformedTransactions = transformTransactions(transactions);
   const sortedTransactions = sortTransactionsByDate(transformedTransactions);
 
   return groupBy(sortedTransactions, getMonthAndYearFromTransactionDate);
+}
+/**
+ * Compute the overall transaction amounts
+ * @param {object[]} [transactions=[]] array of transaction objects
+ * @returns {number} overall transaction amounts
+ */
+export function computeTransactionBalance(transactions = []) {
+  let transactionsBalance = 0;
+
+  transactions.forEach((transaction) => {
+    const amount =
+      transaction.category === 'expense'
+        ? -transaction.amount
+        : +transaction.amount;
+
+    transactionsBalance += amount;
+  });
+
+  return transactionsBalance;
 }

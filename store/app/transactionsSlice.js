@@ -1,6 +1,9 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { groupTransactionsByDate } from '../../utils/transactions';
+import {
+  groupTransactionsByDate,
+  computeTransactionBalance,
+} from '../../utils/transactions';
 
 const transactionsSlice = createSlice({
   name: 'transactions',
@@ -43,18 +46,7 @@ export const selectGroupedTransactions = createSelector(
 );
 
 export const selectTransactionsBalance = ({ transactions }) => {
-  let transactionsBalance = 0;
-
-  transactions.forEach((transaction) => {
-    const amount =
-      transaction.category === 'expense'
-        ? -transaction.amount
-        : +transaction.amount;
-
-    transactionsBalance += amount;
-  });
-
-  return transactionsBalance;
+  return computeTransactionBalance(transactions);
 };
 
 const { actions, reducer } = transactionsSlice;
