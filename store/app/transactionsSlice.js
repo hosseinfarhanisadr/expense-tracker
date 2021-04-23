@@ -36,7 +36,7 @@ export const selectGroupedTransactions = createSelector(
 
     if (type) {
       return transactions.filter((transaction) =>
-        transaction.note.includes(type)
+        transaction.note.toLowerCase().includes(type.toLowerCase())
       );
     }
 
