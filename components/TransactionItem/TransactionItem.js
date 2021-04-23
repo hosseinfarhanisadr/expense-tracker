@@ -3,7 +3,10 @@ import Link from 'next/link';
 
 const TransactionItem = ({ transaction }) => {
   return (
-    <li className="border-b border-gray-300 p-6 mx-2">
+    <li
+      className="border-b border-gray-300 p-6 mx-2"
+      data-testid={transaction.id}
+    >
       <Link href={`/${transaction.id}/edit`}>
         <a className="flex flex-col sm:flex-row sm:items-center w-full">
           <div className="text-3xl font-bold">{transaction.formattedDay}</div>
